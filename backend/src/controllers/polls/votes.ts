@@ -4,6 +4,8 @@ import ElectionContract from "../../web3";
 export default async (_: Request, res: Response) => {
   const instance = await ElectionContract.deployed();
 
+  const electionName = await instance.getElectionName();
+  const electionDescription = await instance.getElectionDescription();
   const candidates = await instance.getCandidates();
   const votes = await instance.getVotes();
 
@@ -20,5 +22,5 @@ export default async (_: Request, res: Response) => {
       response[vote[3]] = response[vote[3]] + 1;
   }
 
-  return res.send({ votes: response });
+  return res.send({ votes: response, electionName: electionName, electionDescription: electionDescription });
 };

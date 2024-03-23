@@ -7,20 +7,21 @@ export default async (req: Request, res: Response) => {
   const description = await instance.getElectionDescription();
 
   const candidates = await instance.getCandidates();
+  const candidateInfos = await instance.getCandidateInfos();
   const votes = await instance.getVotes();
 
-  const response: any = {};
+  const response: any = [];
 
   for (let i = 0; i < candidates.length; i++) {
-    response[candidates[i]] = 0;
+    response.push({name: candidates[i], info : candidateInfos[i]});
   }
 
-  for (let i = 0; i < votes.length; i++) {
-    const vote = votes[i];
+  // for (let i = 0; i < votes.length; i++) {
+  //   const vote = votes[i];
 
-    if (typeof response[vote[3]] != "undefined")
-      response[vote[3]] = response[vote[3]] + 1;
-  }
+  //   if (typeof response[vote[3]] != "undefined")
+  //     response[vote[3]] = response[vote[3]] + 1;
+  // }
 
-  return res.send({ name, description, votes: response });
+  return res.send({ name, description, response });
 };

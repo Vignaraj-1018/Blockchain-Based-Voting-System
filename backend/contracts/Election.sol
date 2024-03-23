@@ -32,6 +32,7 @@ contract Election {
     }
     mapping(string => Candidate) public candidates;
     string[] candidateNames;
+    string[] candidateInfos;
 
     function addCandidate(string memory _candidateName, string memory _info)
         public
@@ -45,10 +46,15 @@ contract Election {
 
         candidates[_candidateName] = newCandidate;
         candidateNames.push(_candidateName);
+        candidateInfos.push(_info);
     }
 
     function getCandidates() public view returns (string[] memory) {
         return candidateNames;
+    }
+
+    function getCandidateInfos() public view returns (string[] memory) {
+        return candidateInfos;
     }
 
     /*****************************CANDIDATES SECTION*****************************/

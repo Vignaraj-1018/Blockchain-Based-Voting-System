@@ -3,7 +3,7 @@
   "host": "localhost",
   "port": 3306,
   "username": "bbvs",
-  "password": "Password$$",
+  "password": "Password00$$",
   "database": "bbvs",
   "synchronize": false,
   "logging": true,

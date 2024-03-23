@@ -20,6 +20,6 @@ export class User extends BaseEntity {
   @Column()
   admin!: boolean;
 
-  @Column({ default: false })
+  @Column({ default: true })
   verified!: boolean;
 }
