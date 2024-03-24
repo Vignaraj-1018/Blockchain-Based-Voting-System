@@ -13,7 +13,7 @@ const Signup = ({setLoggedIn}) => {
   const handleLogin = async () => {
     console.log(email,password);
     try {
-      const response = await axios.post('http://localhost:8000/auth/signup', {
+      const response = await axios.post(`${import.meta.env.VITE_backend_url}/auth/signup`, {
         email: email,
         password: password,
         name: name,

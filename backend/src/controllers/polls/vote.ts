@@ -27,6 +27,23 @@ export const checkVoteability = async (req: Request, res: Response) => {
   return res.send("not-voted");
 };
 
+export const getVoteById = async (req: Request, res: Response) => {
+
+  const { id } = req.params;
+  if (!id) return res.status(400).send("no id found");
+
+  const instance = await ElectionContract.deployed();
+  const votes = await instance.getVotes();
+
+  for(let i =0; i<votes.length;i++){
+    if(votes[i].voterId == id){
+      return res.send(votes[i]);
+    }
+  }
+
+  return res.send("not-voted");
+}
+
 const schema = yup.object({
   body: yup.object({
     id: yup.string().required(),

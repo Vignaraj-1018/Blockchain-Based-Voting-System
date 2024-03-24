@@ -12,7 +12,7 @@ function App() {
       <div className='flex bg-header text-white p-5'>
         <Navbar loggedIn={loggedIn} admin={admin} setAdmin={setAdmin} setLoggedIn={setLoggedIn}/>
       </div>
-      <div className='flex px-5 h-full overflow-auto'>
+      <div className='flex p-5 h-full overflow-auto'>
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/login' element={<Login setLoggedIn={setLoggedIn} setAdmin={setAdmin}/>}/>

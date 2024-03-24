@@ -1,11 +1,14 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const NewElection = () => {
     const [electionName, setElectionName] = useState();
     const [electionDescription, setElectionDescription] = useState();
     
     const [candidateList,setCandidateList] = useState([{name:'', info:''}]);
+
+    const navigate = useNavigate();
 
     const handleCandidateName = (index, data)=>{
         candidateList[index].name = data;
@@ -31,24 +34,26 @@ const NewElection = () => {
         console.log(postObj);
 
         try{
-            await axios.post("http://localhost:8000/polls/reset")
+            await axios.post(`${import.meta.env.VITE_backend_url}/polls/reset`)
                 .then(resp=>{
                     console.log(resp.data);
-                    return axios.post("http://localhost:8000/polls/start",postObj);
+                    return axios.post(`${import.meta.env.VITE_backend_url}/polls/start`,postObj);
                 })
                 .then(resp=>{
                     console.log(resp.data);
+                    navigate('/admin/election');
                 })
         }
         catch(err){
             console.log(err);
+            alert(err.response.data)
         }
     }
 
   return (
     <div className='flex flex-col items-center w-full py-10 gap-10'>
         <div className="flex text-3xl font-bold">New Election</div>
-        <div className="flex flex-col gap-5 w-[40rem]">
+        <div className="flex flex-col gap-5 sm:w-[40rem]">
             <div className="flex flex-row justify-between">
                 <div className="flex w-[30%]">
                     <p className="flex font-bold text-lg">Name</p>

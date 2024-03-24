@@ -10,10 +10,10 @@ export default async (req: Request, res: Response) => {
   const candidateInfos = await instance.getCandidateInfos();
   const votes = await instance.getVotes();
 
-  const response: any = [];
+  const candidateList: any = [];
 
   for (let i = 0; i < candidates.length; i++) {
-    response.push({name: candidates[i], info : candidateInfos[i]});
+    candidateList.push({name: candidates[i], info : candidateInfos[i]});
   }
 
   // for (let i = 0; i < votes.length; i++) {
@@ -23,5 +23,5 @@ export default async (req: Request, res: Response) => {
   //     response[vote[3]] = response[vote[3]] + 1;
   // }
 
-  return res.send({ name, description, response });
+  return res.send({ name, description, candidateList });
 };

@@ -42,5 +42,5 @@ export default async (req: Request, res: Response) => {
     return res.status(400).send(error);
   }
 
-  return res.send(newUser);
+  return res.send({user: newUser});
 };

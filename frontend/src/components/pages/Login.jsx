@@ -10,7 +10,7 @@ const Login = ({setLoggedIn,setAdmin}) => {
   const handleLogin = async () => {
     console.log(email,password);
     try {
-      const response = await axios.post('http://localhost:8000/auth/login', {
+      const response = await axios.post(`${import.meta.env.VITE_backend_url}/auth/login`, {
         email: email,
         password: password
       });

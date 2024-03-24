@@ -12,7 +12,7 @@ const AdminElection = () => {
 
     const getElectionData = async () => {
         try {
-        const response = await axios.get('http://localhost:8000/polls/votes');
+        const response = await axios.get(`${import.meta.env.VITE_backend_url}/polls/votes`);
         console.log('Results:', response.data);
         transformData(response.data.votes);
         setElectionData(response.data);
@@ -23,7 +23,7 @@ const AdminElection = () => {
 
     const getElectionStatus = async () => {
         try {
-        const response = await axios.get('http://localhost:8000/polls/status');
+        const response = await axios.get(`${import.meta.env.VITE_backend_url}/polls/status`);
         console.log('Results:', response.data);
         setElectionStatus(response.data.status);
         } catch (error) {
@@ -45,10 +45,24 @@ const AdminElection = () => {
         })));
     }
 
+    const handleFinishElection = async() =>{
+        if(electionStatus === 'finished'){
+            return;
+        }
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_backend_url}/polls/end`);
+            console.log('Results:', response.data);
+            // setElectionStatus(response.data.status);
+            } catch (error) {
+            console.error('Error occurred', error);
+        }
+        getElectionStatus();
+    }
+
   console.log(electionData,electionStatus);
 
   return (
-    <div className='flex flex-col items-center w-full py-10 gap-10'>
+    <div className='flex flex-col items-center w-full gap-10'>
         <div className="flex text-3xl font-bold">Admin Election</div>
         <div className="flex text-2xl flex-row gap-5">
             <span className="flex font-bold">Name: </span>
@@ -58,7 +72,7 @@ const AdminElection = () => {
             <span className="flex font-bold">Status: </span>
             <span className="flex" style={{ textTransform: 'capitalize' }}>{electionStatus}</span>
         </div>
-        <div className="flex flex-row flex-wrap gap-20">
+        <div className="flex flex-row flex-wrap gap-20 items-center justify-center">
             {votes?.map((candidate,index) =>(
                 <div className="flex flex-col items-center gap-2" key={index}>
                     <div className="flex border-2 border-black h-40 w-20 rounded-lg relative">
@@ -70,6 +84,7 @@ const AdminElection = () => {
                 </div>
             ))}
         </div>
+        <div className="flex justify-center bg-black text-white px-5 py-2 rounded-lg text-xl font-bold cursor-pointer hover:scale-105" onClick={handleFinishElection}>Finish Election</div>
         <div className="flex justify-center bg-black text-white px-5 py-2 rounded-lg text-xl font-bold cursor-pointer hover:scale-105" onClick={()=>navigate('/admin/election/new')}>Create New Election</div>
     </div>
   )

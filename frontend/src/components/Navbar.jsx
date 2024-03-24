@@ -7,14 +7,10 @@ const Navbar = ({loggedIn,admin, setLoggedIn, setAdmin}) => {
   const [navToggle,setNavToggle] = useState();
   const navigate = useNavigate();
 
-  console.log(loggedIn,admin);
   const userData = JSON.parse(localStorage.getItem('user'));
-  console.log(userData);
-
   const handleLogOut= () => {
     setAdmin(false);
     setLoggedIn(false);
-    console.log(loggedIn,admin);
     navigate("/");
   }
 
@@ -48,6 +44,7 @@ const Navbar = ({loggedIn,admin, setLoggedIn, setAdmin}) => {
                 {!loggedIn && <Link className='flex text-xl hover:text-primary px-5' to={'/login'}>Login</Link>}
                 {loggedIn && admin && <Link className='flex text-xl hover:text-primary px-5' to={'/admin/election'}>Election</Link>}
                 {loggedIn && !admin && <Link className='flex text-xl hover:text-primary px-5' to={'/election'}>Vote</Link>}
+                {loggedIn && <div className='flex text-xl hover:text-primary px-5' onClick={handleLogOut}>Logout</div>}
               </div>
             </div>
           }

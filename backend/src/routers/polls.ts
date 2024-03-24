@@ -6,13 +6,14 @@ import statusController from "../controllers/polls/status";
 import endController from "../controllers/polls/end";
 import resetController from "../controllers/polls/reset";
 import votesController from "../controllers/polls/votes";
-import voteController, { checkVoteability } from "../controllers/polls/vote";
+import voteController, { checkVoteability, getVoteById } from "../controllers/polls/vote";
 
 const router = express.Router();
 
 router.get("/", fetchController);
 router.get("/status", statusController);
 router.get("/votes", votesController);
+router.get("/check-vote/:id",getVoteById);
 
 router.post("/start", startController);
 router.post("/end", endController);
