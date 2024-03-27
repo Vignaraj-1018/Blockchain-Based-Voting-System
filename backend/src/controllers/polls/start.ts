@@ -11,7 +11,7 @@ const schema = yup.object({
         name: yup.string().min(3),
         info: yup.string().min(10),
       })
-    ),
+    ).min(2),
   }),
 });
 

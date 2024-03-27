@@ -146,6 +146,10 @@ contract Election {
             delete candidates[candidateNames[i]];
         }
 
+        for (uint32 i = 0; i < candidateInfos.length; i++) {
+            delete candidates[candidateInfos[i]];
+        }
+
         for (uint32 i = 0; i < votersArray.length; i++) {
             delete voterIds[votersArray[i]];
         }
@@ -155,6 +159,7 @@ contract Election {
 
         delete votes;
         delete candidateNames;
+        delete candidateInfos;
         delete votersArray;
 
         started = false;

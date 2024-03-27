@@ -37,12 +37,33 @@ const NewElection = () => {
             await axios.post(`${import.meta.env.VITE_backend_url}/polls/reset`)
                 .then(resp=>{
                     console.log(resp.data);
-                    return axios.post(`${import.meta.env.VITE_backend_url}/polls/start`,postObj);
+                    return axios.post(`${import.meta.env.VITE_backend_url}/polls/start`,postObj)
+                    .then(resp=>{
+                        console.log(resp.data);
+                        navigate('/admin/election');
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        alert(err.response.data);
+                    });
                 })
-                .then(resp=>{
-                    console.log(resp.data);
-                    navigate('/admin/election');
-                })
+                .catch(err => {
+                    console.log(err);
+                    if(err.response.data == "election not finished or already reset"){
+                        return axios.post(`${import.meta.env.VITE_backend_url}/polls/start`,postObj)
+                        .then(resp=>{
+                            console.log(resp.data);
+                            navigate('/admin/election');
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            alert(err.response.data);
+                        });
+                    }
+                    else{
+                        alert(err.response.data);
+                    }
+                });
         }
         catch(err){
             console.log(err);
